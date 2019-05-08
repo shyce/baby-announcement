@@ -1,6 +1,7 @@
 html,
 body,
-#app {
+#app,
+.container {
   height: 100%;
 }
 .family {
@@ -9,6 +10,6 @@ body,
   justify-content: center;
   align-items: center;
 }
-.family > span {
-  margin-right: 1em;
+.family > .card {
+  width: 50vw;
 }
