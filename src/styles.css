@@ -1,0 +1,14 @@
+html,
+body,
+#app {
+  height: 100%;
+}
+.family {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.family > span {
+  margin-right: 1em;
+}
