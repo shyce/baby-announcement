@@ -6,6 +6,7 @@ import Confetti from "react-confetti";
 import useStateMachine from "./useStateMachine";
 import Baby from './baby.png'
 import "bulma/css/bulma.css";
+import 'csshake/dist/csshake-rotate.min.css';
 import "./styles.css";
 
 function countdown() {
@@ -15,7 +16,7 @@ function countdown() {
 
   const months = differenceInMonths(future, now);
   if (months > 0) {
-    result.push(`in ${months} months,`);
+    result.push(`in ${months} months and `);
     future = subMonths(future, months);
   }
 
@@ -25,10 +26,6 @@ function countdown() {
     future = subDays(future, days);
   }
 
-  const hours = differenceInHours(future, now);
-  if (hours > 0) {
-    result.push(`and ${hours} hours`);
-  }
 
   return result.join(' ');
 }
@@ -39,7 +36,7 @@ const babyAnnouncement = {
     introduction: {
       title: "Story time!",
       message:
-        "It's a big day! We'd love to share why, but first we need a name!",
+        "It's a big day! We'd love to share why, but first we need your name!",
       render: (state, nextState) => {
         console.log(state, nextState);
         return (
@@ -56,14 +53,14 @@ const babyAnnouncement = {
       },
       PREVIOUS_BUTTON: null,
       NEXT: "tease_date",
-      NEXT_BUTTON: "There, now what is it??",
-      BACKGROUND: "skyblue"
+      NEXT_BUTTON: "There, now what is this big news??",
+      BACKGROUND: "#F0EA8F"
     },
     tease_date: {
       PREVIOUS: "introduction",
       guestName: "",
       title: "Set your calendars!",
-      subtitle: new Date("2019", "8", "25").toLocaleDateString(),
+      subtitle: "September 2019",
       render: (state, nextState) => {
         return (
           <React.Fragment>
@@ -80,18 +77,18 @@ const babyAnnouncement = {
       PREVIOUS_BUTTON: "That's not my name.",
       NEXT: "announcement",
       NEXT_BUTTON: "Sounds... interesting. Go on.",
-      BACKGROUND: "pink"
+      BACKGROUND: "#A9F0CD"
     },
     announcement: {
       title: "A frikkin baby!",
-      subtitle: `I'm going to be a dad?`,
+      subtitle: `We're going to be parents?!`,
       render: state => {
         return (
           <React.Fragment>
             <h1 className="title is-1">{state.title}</h1>
             <h2 className="subtitle">{state.subtitle}</h2>
             <p>
-              You heard right &mdash; {countdown()} <strong>A FRIKKIN BABY WILL BE HERE!</strong>
+              You heard right &mdash; {countdown()} <u>A FRIKKIN BABY WILL BE HERE!</u>
             </p>
           </React.Fragment>
         );
@@ -99,7 +96,7 @@ const babyAnnouncement = {
       PREVIOUS: "tease_date",
       NEXT: "date_announcement",
       NEXT_BUTTON: "You could have just said it!",
-      BACKGROUND: "skyblue",
+      BACKGROUND: "#FA86F3",
     },
     date_announcement: {
       title: "That's not all!",
@@ -119,54 +116,125 @@ const babyAnnouncement = {
       PREVIOUS: "announcement",
       NEXT: "tease_sex_1",
       NEXT_BUTTON: "You could have just said it!",
-      BACKGROUND: "pink"
+      BACKGROUND: "#FA887A"
     },
     tease_sex_1: {
       PREVIOUS: "announcement",
       message: "It's a...",
+      render: state => {
+        return (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center', 
+              alignItems: 'center',
+              fontWeight: 'bold',
+              fontSize: '3em',
+              letterSpacing: '0.1rem',
+              minHeight: '152px', 
+            }}
+            >{state.message}</div>
+        )
+      },
       NEXT: "tease_sex_2",
       NEXT_BUTTON: "...really?",
-      BACKGROUND: "skyblue"
+      BACKGROUND: "#D5CBF0"
     },
     tease_sex_2: {
       PREVIOUS: "tease_sex_1",
       message: "...a...",
+      render: state => {
+        return (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center', 
+              alignItems: 'center',
+              fontWeight: 'bold',
+              fontSize: '3em',
+              letterSpacing: '0.1rem',
+              minHeight: '152px', 
+            }}
+            >{state.message}</div>
+        )
+      },
       NEXT_BUTTON: "...",
       NEXT: "tease_sex_3",
-      BACKGROUND: "pink"
+      BACKGROUND: "#869BFA"
     },
     tease_sex_3: {
       PREVIOUS: "tease_sex_2",
       message: "ACHOOO!",
+      render: state => {
+        return (
+          <div
+            className="shake shake-constant shake-rotate"
+            style={{
+              display: 'flex',
+              justifyContent: 'center', 
+              alignItems: 'center',
+              fontWeight: 'bold',
+              fontSize: '5em',
+              letterSpacing: '0.1rem',
+              minHeight: '152px', 
+            }}
+            >{state.message}</div>
+        )
+      },
       NEXT_BUTTON: "Cute. You done?",
       NEXT: "tease_sex_4",
-      BACKGROUND: "skyblue"
+      BACKGROUND: "#EBE7CD"
     },
     tease_sex_4: {
       PREVIOUS: "tease_sex_3",
-      message: "Wheh, that was a big sneeze.",
+      message: "Whew, that was a big sneeze!",
+      render: state => {
+        return (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center', 
+              alignItems: 'center',
+              fontWeight: 'bold',
+              fontSize: '3em',
+              letterSpacing: '0.1rem',
+              textAlign: 'center',
+              minHeight: '152px', 
+            }}
+            >{state.message}</div>
+        )
+      },
       NEXT_BUTTON: "Seriously!",
       NEXT: "celebrate",
-      BACKGROUND: "ping"
+      BACKGROUND: "#EAB2D9"
     },
     celebrate: {
       PREVIOUS: "tease_sex_4",
-      title: "Boy!",
+      title: "It's a boy!",
       message:
-        "On September 25th, a little baby boy is due to arrive that will change our lives forever. Due to our distance and work schedule, we are looking for help to host a baby shower. Please contact brianroyer@gmail.com if you would be interested.",
+        "September 2019, our little baby boy is due to arrive that will change our lives forever. Due to our distance and work schedule, we are looking for help to host a baby shower. Please contact brianroyer@gmail.com if you would be interested in helping.",
       render: state => {
         return (
           <React.Fragment>
             <h1 className="title is-1">{state.title}</h1>
             <h2 className="subtitle">{state.message}</h2>
-            <img src={Baby} /><br />
-            <small>This is actually our little boy!</small>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <img src={Baby} />
+              <small>This is actually our little boy!</small>
+            </div>
           </React.Fragment>
         );
       },
       CELEBRATE: true,
       PREVIOUS_BUTTON: "No way. Back it up.",
-      BACKGROUND: "skyblue",
+      BACKGROUND: "#3536E8",
       NEXT_BUTTON: null
     }
   }
@@ -185,7 +253,7 @@ function App() {
         className="family"
         style={{ background: cm.BACKGROUND ? cm.BACKGROUND : "#eee" }}
       >
-        <div className="card" style={{ zIndex: 3 }}>
+        <div className="card" style={{ zIndex: 3, borderRadius: '50px', background: "#EDEAE7" }}>
           <div className="card-content" style={{ minHeight: "200px" }}>
             {cm.render ? cm.render() : cm.message}
           </div>

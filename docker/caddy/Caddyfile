@@ -1,0 +1,6 @@
+announcement.royer.app {
+	proxy / localhost:1234
+    tls {
+        dns digitalocean
+    }
+}

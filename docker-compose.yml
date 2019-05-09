@@ -1,0 +1,26 @@
+version: '3'
+services:
+  caddy:
+    build:
+      context: ./docker/caddy
+      dockerfile: Dockerfile
+    volumes:
+      - ./dist:/srv
+      - ./docker/caddy/data:/root/.caddy  # to save certificates on disk
+      - ./docker/caddy/Caddyfile:/etc/Caddyfile  # to mount custom Caddyfile
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DO_AUTH_TOKEN=${DO_AUTH_TOKEN}
+    depends_on:
+      - web
+
+  web:
+    image: node:dubnium-stretch
+    working_dir: /usr/src/app
+    command: npm start
+    volumes: 
+      - ./:/usr/src/app  # to save certificates on disk
+    ports:
+      - "1234:1234"
